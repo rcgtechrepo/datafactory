@@ -1,0 +1,9 @@
+{
+	"name": "rcg-df",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "b0c380c3-830d-467e-bb3b-7f963a4fa082",
+		"tenantId": "7aa4356e-1227-4975-bb58-165bff68ff0a"
+	}
+}
