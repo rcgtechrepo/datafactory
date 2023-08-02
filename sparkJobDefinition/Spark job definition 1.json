@@ -1,0 +1,35 @@
+{
+	"name": "Spark job definition 1",
+	"properties": {
+		"targetBigDataPool": {
+			"referenceName": "testPool",
+			"type": "BigDataPoolReference"
+		},
+		"requiredSparkVersion": "3.3",
+		"language": "scala",
+		"scanFolder": false,
+		"jobProperties": {
+			"name": "Spark job definition 1",
+			"file": "abfss://synfsname@rcgsynacct.dfs.core.windows.net/synapse/workspaces/rcg-synapse/batchjobs/Spark%20job%20definition%201/untitled1.jar",
+			"className": "Test",
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "1",
+				"spark.dynamicAllocation.maxExecutors": "1",
+				"spark.autotune.trackingId": "243b9d68-fb5f-4880-8a75-f72c35c07b5d",
+				"spark.synapse.context.sjdname": "Spark job definition 1"
+			},
+			"args": [],
+			"jars": [],
+			"pyFiles": [
+				""
+			],
+			"files": [],
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 1
+		}
+	}
+}

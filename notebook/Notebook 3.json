@@ -1,0 +1,78 @@
+{
+	"name": "Notebook 3",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "testPool",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"runAsWorkspaceSystemIdentity": false,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "af727297-6b9a-46cd-a8e7-888a8e841453"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1"
+			},
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/6f783307-f8cd-4eb8-8cb5-8611ff4bc05f/resourceGroups/purview-vm_group/providers/Microsoft.Synapse/workspaces/rcg-synapse/bigDataPools/testPool",
+				"name": "testPool",
+				"type": "Spark",
+				"endpoint": "https://rcg-synapse.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/testPool",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net",
+					"authHeader": null
+				},
+				"sparkVersion": "3.3",
+				"nodeCount": 10,
+				"cores": 4,
+				"memory": 28,
+				"extraHeader": null
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"microsoft": {
+						"language": "python"
+					}
+				},
+				"source": [
+					"%%pyspark\n",
+					"spark.sql(\"CREATE TABLE IF NOT EXISTS default.test (id Int, name String) USING Parquet LOCATION '/synfsname/parquet/'\")\n",
+					"\n",
+					"values = [(1, \"left\"),(2, \"right\"),(3,\"center\")]\n",
+					"df = sqlContext.createDataFrame(values,['id','name'])\n",
+					"\n",
+					"df.write.mode('overwrite').format('parquet').saveAsTable('default.test')\n",
+					"df = spark.sql(\"SELECT * FROM default.test\")\n",
+					"df.show(100)"
+				],
+				"execution_count": 20
+			}
+		]
+	}
+}

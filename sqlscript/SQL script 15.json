@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 15",
+	"properties": {
+		"content": {
+			"query": "CREATE EXTERNAL FILE FORMAT [ExternalFileFormat] WITH\n(\n\tFORMAT_TYPE = PARQUET\n)\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "local_db",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

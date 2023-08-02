@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 16",
+	"properties": {
+		"content": {
+			"query": "CREATE EXTERNAL DATA SOURCE [ExternalDataSource] WITH\n(\n\tLOCATION = 'https://rcgsynacct.blob.core.windows.net/synfsname'\n)\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "local_db",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

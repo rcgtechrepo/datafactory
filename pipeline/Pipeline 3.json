@@ -1,0 +1,55 @@
+{
+	"name": "Pipeline 3",
+	"properties": {
+		"activities": [
+			{
+				"name": "Notebook1",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/eric.perler@rcggs.com/Untitled Notebook 2023-07-17 21:20:29",
+					"baseParameters": {
+						"country": "TEST",
+						"parameter": {
+							"value": "@pipeline().parameters.parameter",
+							"type": "Expression"
+						},
+						"subject": {
+							"value": "@pipeline().parameters.trigger",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"parameter": {
+				"type": "string"
+			},
+			"trigger": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"variable": {
+				"type": "String",
+				"defaultValue": "variable_val"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-07-25T21:12:19Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}
