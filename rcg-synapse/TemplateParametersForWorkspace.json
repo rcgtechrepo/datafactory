@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "rcg-synapse"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"AzureDatabricks1_accessToken": {
+			"value": ""
+		},
+		"AzureFunction1_functionKey": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
+		"CosmosDbNoSql1_connectionString": {
+			"value": ""
+		},
+		"SharePointOnlineList1_servicePrincipalKey": {
+			"value": ""
+		},
+		"rcg-synapse-WorkspaceDefaultSqlServer_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:rcg-synapse.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"AzureFunction1_properties_typeProperties_functionAppUrl": {
+			"value": "https://ericsnewapp.azurewebsites.net"
+		},
+		"SharePointOnlineList1_properties_typeProperties_servicePrincipalId": {
+			"value": "eric.perler@rcggs.com"
+		},
+		"rcg-synapse-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://rcgsynacct.dfs.core.windows.net"
+		},
+		"Trigger 1_properties_Pipeline 3_parameters_parameter": {
+			"value": "@triggerBody().folderPath"
+		},
+		"Trigger 1_properties_Pipeline 3_parameters_trigger": {
+			"value": "@triggerBody().fileName"
+		},
+		"Trigger 1_properties_typeProperties_scope": {
+			"value": "/subscriptions/6f783307-f8cd-4eb8-8cb5-8611ff4bc05f/resourceGroups/purview-vm_group/providers/Microsoft.Storage/storageAccounts/rcgsynacct"
+		}
+	}
+}
