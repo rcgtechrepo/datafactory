@@ -1,0 +1,30 @@
+{
+	"name": "Trigger 1",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Pipeline 3",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"parameter": "@triggerBody().folderPath",
+					"trigger": "@triggerBody().fileName"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/synfsname/blobs/2023/",
+			"blobPathEndsWith": ".parquet",
+			"ignoreEmptyBlobs": false,
+			"scope": "/subscriptions/6f783307-f8cd-4eb8-8cb5-8611ff4bc05f/resourceGroups/purview-vm_group/providers/Microsoft.Storage/storageAccounts/rcgsynacct",
+			"events": [
+				"Microsoft.Storage.BlobCreated",
+				"Microsoft.Storage.BlobDeleted"
+			]
+		}
+	}
+}

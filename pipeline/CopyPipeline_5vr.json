@@ -1,0 +1,176 @@
+{
+	"name": "CopyPipeline_5vr",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_5vr",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_5vr",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "dbo.@{item().source.table}"
+								},
+								{
+									"name": "Destination",
+									"value": "synfsname/2023/@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_5vr",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().source.table"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_5vr",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"table": "Date"
+						},
+						"destination": {
+							"fileName": "dboDate.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "emp"
+						},
+						"destination": {
+							"fileName": "dboemp.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "Geography"
+						},
+						"destination": {
+							"fileName": "dboGeography.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "HackneyLicense"
+						},
+						"destination": {
+							"fileName": "dboHackneyLicense.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "inputEmp"
+						},
+						"destination": {
+							"fileName": "dboinputEmp.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "inputEmp1"
+						},
+						"destination": {
+							"fileName": "dboinputEmp1.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "Medallion"
+						},
+						"destination": {
+							"fileName": "dboMedallion.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "Time"
+						},
+						"destination": {
+							"fileName": "dboTime.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "Trip"
+						},
+						"destination": {
+							"fileName": "dboTrip.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "Weather"
+						},
+						"destination": {
+							"fileName": "dboWeather.parquet"
+						}
+					}
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-07-26T20:08:26Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

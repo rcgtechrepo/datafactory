@@ -1,0 +1,149 @@
+{
+	"name": "Notebook 1",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "testPool",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 1,
+			"runAsWorkspaceSystemIdentity": false,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "1",
+				"spark.dynamicAllocation.maxExecutors": "1",
+				"spark.autotune.trackingId": "de1f8ed8-28e5-4a85-806d-6182b3069879"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1"
+			},
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/6f783307-f8cd-4eb8-8cb5-8611ff4bc05f/resourceGroups/purview-vm_group/providers/Microsoft.Synapse/workspaces/rcg-synapse/bigDataPools/testPool",
+				"name": "testPool",
+				"type": "Spark",
+				"endpoint": "https://rcg-synapse.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/testPool",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net",
+					"authHeader": null
+				},
+				"sparkVersion": "3.3",
+				"nodeCount": 10,
+				"cores": 4,
+				"memory": 28,
+				"extraHeader": null
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"from notebookutils import mssparkutils\r\n",
+					"mssparkutils.fs.help()"
+				],
+				"execution_count": 55
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"from pyspark.sql.functions import col\r\n",
+					"\r\n",
+					"%timeit df = spark.read.format(\"cosmos.olap\")\\\r\n",
+					"    .option(\"spark.synapse.linkedService\", \"CosmosDbNoSql1\")\\\r\n",
+					"    .option(\"spark.cosmos.container\", \"metadata\")\\\r\n",
+					"    .load()\r\n",
+					"\r\n",
+					"key = df.filter(df['id'] == '100')\\\r\n",
+					"                .select(\"key\")\\\r\n",
+					"                .collect()[0]['key']\r\n",
+					"\r\n",
+					"print(key)"
+				],
+				"execution_count": 2
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"# from pyspark.sql import SparkSession\r\n",
+					"\r\n",
+					"# blob_account_name = 'rcgsynacct' \r\n",
+					"# blob_container_name = 'synfsname'\r\n",
+					"# blob_relative_path = '2023/NYCTripSmall_3.parquet'\r\n",
+					"# linked_service_name = 'rcg-synapse-WorkspaceDefaultStorage'\r\n",
+					"\r\n",
+					"# blob_sas_token = mssparkutils.credentials.getConnectionStringOrCreds(linked_service_name)\r\n",
+					"\r\n",
+					"# wasb_path = 'wasbs://%s@%s.blob.core.windows.net/%s' % (blob_container_name, blob_account_name, blob_relative_path)\r\n",
+					"\r\n",
+					"# spark.conf.set('fs.azure.sas.%s.%s.blob.core.windows.net' % (blob_container_name, blob_account_name), blob_sas_token)\r\n",
+					"# print('Remote blob path: ' + wasb_path)\r\n",
+					"\r\n",
+					"# df = spark.read.parquet(wasb_path)\r\n",
+					"# df.schema\r\n",
+					"# df.show(2)\r\n",
+					"\r\n",
+					"\r\n",
+					"from pyspark.sql import SparkSession\r\n",
+					"from pyspark.sql.types import *\r\n",
+					"account_name = \"rcgsynacct\"\r\n",
+					"container_name = \"synfsname\"\r\n",
+					"relative_path = \"2023/NYCTripSmall_3.parquet\"\r\n",
+					"\r\n",
+					"# adls_path = 'abfss://%s@%s.dfs.core.windows.net/%s' % (container_name, account_name, relative_path)\r\n",
+					"adls_path = f'abfss://{container_name}@{account_name}.dfs.core.windows.net/{relative_path}'\r\n",
+					"\r\n",
+					"print(adls_path)\r\n",
+					"df1 = spark.read.parquet(adls_path)\r\n",
+					"df1.printSchema\r\n",
+					"# df1.show(4)\r\n",
+					"\r\n",
+					"\r\n",
+					"\r\n",
+					""
+				],
+				"execution_count": 4
+			}
+		]
+	}
+}

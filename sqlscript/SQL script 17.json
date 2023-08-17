@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 17",
+	"properties": {
+		"content": {
+			"query": "DROP EXTERNAL TABLE [dbo].[ExternalTable]\nCREATE EXTERNAL TABLE [dbo].[ExternalTable]\n(\n\t [VendorID] BIGINT,\n\t [tpep_pickup_datetime] DATETIME,\n\t [tpep_dropoff_datetime] DATETIME,\n\t [passenger_count] FLOAT\n)\t\nWITH\n(\n\tLOCATION = '2023/NYCTripSmall_3.parquet',\n\tDATA_SOURCE = [ExternalDataSource],\n\tFILE_FORMAT = [ExternalFileFormat]\n);\n\nSELECT TOP 10 * FROM [dbo].[ExternalTable];\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "local_db",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
